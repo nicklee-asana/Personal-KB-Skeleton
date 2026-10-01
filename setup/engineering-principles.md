@@ -10,7 +10,7 @@ Before saying anything is done, check the thing itself: run the feature, read th
 
 The failure mode is specific: a green targeted test is not a green build, and a hand-resolved merge conflict that looks right has not been built. When a delegate reports success, read its diff rather than its report.
 
-When verification is incomplete, say so in chat in full detail — and never in a published artifact.
+When verification is incomplete, say so plainly and say what wasn't checked.
 
 ## A verdict covers only what that run actually executed
 
@@ -25,7 +25,7 @@ The specific traps, all of them paid for at least once. Replace the repo-specifi
 - **A test expectation must come from the accessor the implementation reads,** or from a literal the test itself set up. Reaching for a sibling accessor that ought to agree adds an invisible second claim, and that is the claim that fails.
 - **An absence in a doc is not evidence.** "The doc says X" is a claim; "the doc doesn't mention Y" is a gap. Check ownership against ownership files in the tree and commit history, and when a doc and a person disagree, don't auto-resolve toward the doc.
 
-State what was actually run, never more than that. If nothing was run, say so — in chat, and never in a published artifact.
+State what was actually run, never more than that. If nothing was run, say so.
 
 ## Build the lever when the work isn't trivial
 

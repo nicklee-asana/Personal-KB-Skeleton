@@ -33,7 +33,7 @@ Start a new chat afterwards. Rules take effect in a new chat; hooks need an edit
 ## Make it yours
 
 1. **Rename the example domain.** `kb/domains/example-team/` → your team or main system. Update the row in `kb/INDEX.md` and `domain:` in the notes, then run `python3 scripts/kb.py sync`.
-2. **Rewrite `setup/response-preferences.md`.** It is one engineer's preferences for how agents should talk to him, kept as a worked example. Edit it to match yours.
+2. **Rewrite `setup/response-preferences.md`.** It is a short, general default — answer first, be concise, be direct. Edit it to match how you like to be answered.
 3. **Point the knowledge-base rule at your repo.** `setup/knowledge-base.md` has a commented-out line that makes the agent read your repo's notes before its first git, build, or test command there. Once you have a few notes about your repo's traps, that line is the most valuable one in the system.
 4. **Delete the example note and lesson** once you have real ones.
 
