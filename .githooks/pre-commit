@@ -1,0 +1,13 @@
+#!/bin/sh
+# Block commits that would leave the knowledge base inconsistent.
+# Enable with:  git config core.hooksPath .githooks
+#
+# Bypass for a genuinely unrelated commit with:  git commit --no-verify
+
+if ! python3 scripts/kb.py check; then
+    echo
+    echo "Knowledge base check failed. Fix the errors above, or run:"
+    echo "    python3 scripts/kb.py sync"
+    echo "if the only problem is stale generated blocks."
+    exit 1
+fi

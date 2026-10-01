@@ -1,0 +1,24 @@
+{
+  "version": 1,
+  "hooks": {
+    "afterFileEdit": [
+      {
+        "command": "python3 {{KB_ROOT}}/setup/hooks/capture-check.py"
+      }
+    ],
+    "postToolUse": [
+      {
+        "command": "python3 {{KB_ROOT}}/setup/hooks/capture-check.py"
+      }
+    ],
+    "stop": [
+      {
+        "command": "python3 {{KB_ROOT}}/setup/hooks/capture-check.py",
+        "loop_limit": 1
+      },
+      {
+        "command": "python3 {{KB_ROOT}}/setup/hooks/kb-autosync.py"
+      }
+    ]
+  }
+}
