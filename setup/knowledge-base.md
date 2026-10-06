@@ -1,60 +1,44 @@
 # Personal Knowledge Base
 
-A personal work knowledge base lives at `{{KB_ROOT}}/kb/`. It holds verified notes about the user's work: the systems they work on, who owns what, and the traps that cost them time.
+`{{KB_ROOT}}/kb/` holds verified notes on the user's work: the systems they work on, who owns what, and the traps that cost them time.
 
-## When to use it
+## When to read it
 
-Consult it when the user asks what they know or have recorded about a work topic, refers to "my notes" or "the KB", asks to record or update something they've learned, or asks a question the knowledge base plausibly already answers.
-
+- When the user asks what they know or have recorded, mentions "my notes" or "the KB", or asks a question it plausibly answers.
 <!-- Optional, and the highest-value line in this file once you have notes about your main repo.
      Uncomment and point it at the domain that records your repo's traps:
-
-Also consult it, unprompted, **before the first git, build, or test command in any task inside `~/path/to/your/repo`**: read `{{KB_ROOT}}/kb/domains/<your-repo-domain>/INDEX.md` and open the notes matching what you are about to do. It records the traps the repo's own docs leave out.
+- **Before the first git, build, or test command** in `~/path/to/your/repo`: read `{{KB_ROOT}}/kb/domains/<your-repo-domain>/INDEX.md` and open the notes that match the task.
 -->
+- Not for unrelated coding tasks. Capturing (below) applies in every session.
 
-Do **not** read it for unrelated coding tasks unless the user's question is about their own recorded knowledge. Capturing, below, still applies in every session.
+**Read budget:** `kb/INDEX.md`, then one domain `INDEX.md`, then at most 3 leaf files chosen by their `summary`. Never glob or bulk-read `kb/**`.
 
-## When to capture
+## When to capture (without asking)
 
-These are the user's notes for everything work-related, so record as things surface rather than waiting to be asked. Write without asking permission when:
+- The user states a durable work fact: behavior, ownership, or the reason for a decision.
+- A session finds something **costly to find**: a trap that burned time, behavior that contradicts the docs or the obvious reading, or a failure the error message didn't explain. Use `status: verified` and cite the source. Skip anything grep, the repo's docs, or the error message would surface in minutes.
+- A meeting or 1:1: write a dated note in `kb/meetings/` and extract the durable facts. If it was mostly career or interpersonal, write it to `personal/meetings/` and extract only the system facts.
+- A recorded fact is contradicted: update the note and set `updated`. A primary source beats hearsay. If you can't tell which is right, record both as conflicting.
+- A note's reasoning was wrong, not just its fact: fix the note and write a lesson.
+- A `reported` claim is confirmed: promote it to `verified` with the source.
 
-- The user states a durable fact about their work — how something behaves, who owns what, why a decision was made
-- A session establishes something from code or docs that isn't recorded yet **and was hard to find** (`status: verified`, cite the source). The bar is cost, not novelty. Record a trap that burned real time, a behavior that contradicts the docs or the obvious reading, or a failure whose cause wasn't in the error message. Don't record anything a future session could rediscover in a few minutes by grepping the code, reading the repo's own docs, or reading the error: code maps, how a function works, which file holds what, one bug's analysis. A bulky KB costs every lookup.
-- The user relays a meeting or 1:1 → a dated note in `{{KB_ROOT}}/kb/meetings/`, then extract durable facts into the domain notes. If it was mostly career, growth, or interpersonal, the note goes to `{{KB_ROOT}}/personal/meetings/` instead and only the system facts are extracted into `kb/`
-- Something recorded is contradicted by code or by what the user is told → update the note to the new state and set `updated`. This is how notes stay current; there's no review schedule. Primary sources beat hearsay regardless of date; if you can't tell which is true, record both and say they conflict rather than picking
-- The *reasoning* behind a note was wrong, not just the fact → fix the note *and* write a lesson. A changed fact isn't a lesson
-- A `reported` claim gets confirmed → promote to `verified` with the source
+Link to the repo's own docs rather than copying from them. Don't record scheduling. Tell the user what you recorded in one sentence.
 
-Don't copy anything already documented in the repo — link to it. Don't record scheduling.
+## Write it succinctly
 
-Mention what you recorded in a sentence; don't narrate the whole note back.
+Everything in `kb/` and `setup/` is agent context, and every extra word costs tokens on every load.
 
-## Read budget
+- State the rule, fact, or trap and its fix. Leave out origin stories, attributions, dated quotes, and motivation that doesn't change what the reader does.
+- Include a "why" only when it decides an edge case the rule alone doesn't.
+- Keep a note to a handful of sentences. Past about 30 lines it is probably explaining code that should just be read.
 
-The knowledge base is built for cheap retrieval. Follow this and stop as soon as you can answer:
+## Writing mechanics
 
-1. Read `{{KB_ROOT}}/kb/INDEX.md` — the top-level router.
-2. Read the one matching domain's `INDEX.md`.
-3. Open **at most 3 leaf files**, chosen from the `summary` line in each file's front matter.
+- Read `{{KB_ROOT}}/kb/CONVENTIONS.md` before creating or restructuring files. Every note has YAML front matter and covers one topic.
+- Never hand-edit inside `<!-- kb:generated:... -->`. After any change, run `python3 {{KB_ROOT}}/scripts/kb.py sync`, then `check`.
+- Corrections go to `kb/lessons/` with `applies_to`. The full contract is in `{{KB_ROOT}}/AGENTS.md`.
 
-Never glob or bulk-read `{{KB_ROOT}}/kb/**`. The indexes exist so that isn't necessary.
+## Outside `kb/`
 
-## Project specs
-
-Long-form specs live in `{{KB_ROOT}}/projects/<project>/`, outside the knowledge base. Read a spec whole when working on that project; the three-file budget doesn't apply. Don't consult specs to answer a knowledge question — what a project concluded belongs in `kb/`.
-
-## `personal/`
-
-`{{KB_ROOT}}/personal/` holds career and growth material, interpersonal and communication notes, and personal side projects. Read and write it freely — it is an export boundary, not a vault.
-
-It sits outside the retrieval protocol, with no indexes and nothing routing to it, so open it when the question is about career or personal matters rather than as a step in answering a work question. Two rules do bind: never cite a `personal/` path in the `sources` of a `visibility: team` note, since that path ships to teammates in an export, and never copy its content into `kb/`.
-
-The split is by *kind*, not by sensitivity. "Sam owns the CLI" is work knowledge and belongs in `kb/` with `visibility: self`; "I find Sam hard to work with" belongs in `personal/`.
-
-## Writing to it
-
-Before creating or restructuring files, read `{{KB_ROOT}}/kb/CONVENTIONS.md`. Every note needs YAML front matter, one topic per file.
-
-Index tables are generated — never hand-edit inside `<!-- kb:generated:... -->` markers. After any change run `python3 {{KB_ROOT}}/scripts/kb.py sync`, then `check` before committing.
-
-Corrections go to `{{KB_ROOT}}/kb/lessons/` as durable rules, each declaring `applies_to`. Full contract is in `{{KB_ROOT}}/AGENTS.md`.
+- `projects/<project>/`: long specs. Read the spec whole when working on that project; the read budget doesn't apply. Don't use specs to answer knowledge questions.
+- `personal/`: career, growth, and interpersonal notes, and side projects. Read and write it freely, but nothing routes there. Never copy its content into `kb/`, and never cite a `personal/` path in a `visibility: team` note. The split is by kind: "Sam owns the CLI" goes in `kb/` (`visibility: self`); "I find Sam hard to work with" goes in `personal/`.

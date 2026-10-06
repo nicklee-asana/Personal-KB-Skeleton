@@ -38,3 +38,7 @@ Use a Mermaid diagram for a request path through more than two components, how s
 ## Ask before writing to shared systems
 
 Local edits are the work itself. Anything other people will read or act on — commits that get pushed, PR descriptions and comments, task comments, Slack messages, merges, labels, auto-merge — gets drafted and shown first, and goes out only once the user approves that specific action. Approval for one action doesn't carry to the next.
+
+## Write testing steps as a runbook
+
+Number the steps. Each gives the exact command or URL and the exact expected output. Resolve ids, hostnames, and paths yourself, and leave placeholders only for values that exist at run time. Include a control case, cleanup, and a pass/fail table. Deliver it as a `.md` file when it runs longer than a screen.
