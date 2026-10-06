@@ -204,7 +204,7 @@ class Result:
 
 def domains(kb: Path) -> list[str]:
     d = kb / "domains"
-    return sorted(p.name for p in d.iterdir() if p.is_dir()) if d.exists() else []
+    return sorted(p.name for p in d.iterdir() if p.is_dir() and not p.name.startswith(".")) if d.exists() else []
 
 
 def load_notes(kb: Path, res: Result) -> list[Note]:
